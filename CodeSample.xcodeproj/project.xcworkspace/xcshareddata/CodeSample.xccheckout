@@ -12,22 +12,34 @@
 	<dict>
 		<key>9E077650-3C28-4036-9389-981D5336AA11</key>
 		<string>ssh://code1.aus.giganews.com/git/gf-code-sample-ios</string>
+		<key>DEE7A92E94F9652606F29D850F96E87D05556D58</key>
+		<string>https://github.com/ektayogesh/GFrogInterview.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CodeSample/CodeSample.xcodeproj/project.xcworkspace</string>
+	<string>CodeSample.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>9E077650-3C28-4036-9389-981D5336AA11</key>
-		<string>../../..</string>
+		<string>../../../gf-code-sample-ios</string>
+		<key>DEE7A92E94F9652606F29D850F96E87D05556D58</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://code1.aus.giganews.com/git/gf-code-sample-ios</string>
+	<string>https://github.com/ektayogesh/GFrogInterview.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>9E077650-3C28-4036-9389-981D5336AA11</string>
+	<string>DEE7A92E94F9652606F29D850F96E87D05556D58</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DEE7A92E94F9652606F29D850F96E87D05556D58</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CodeSample</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

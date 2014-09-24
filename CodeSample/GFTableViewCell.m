@@ -6,6 +6,7 @@
 //
 
 #import "GFTableViewCell.h"
+#import "UIImage+Helper.h"
 
 @implementation GFTableViewCell
 
@@ -29,5 +30,12 @@
 
     // Configure the view for the selected state
 }
-
+-(void)updateCellWithNewsPost:(NewsPost *)newsPost{
+    
+    self.title.text = newsPost.title;
+    NSURL *url = [NSURL URLWithString:newsPost.thumbnailImageURL];
+    [UIImage loadFromURL:url callback:^(UIImage *image) {
+        self.thumbnailImageView.image = image;
+    }];
+}
 @end

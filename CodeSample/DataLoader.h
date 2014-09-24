@@ -12,6 +12,6 @@
 @interface DataLoader : NSObject
 
 - (id)dataLoaderWithDelegate:(id<DataReceiver>)delegate;
-- (void)getData;
+- (void)getDataForSearchTerm:(NSString*)searchTerm;
 
 @end

@@ -6,12 +6,13 @@
 //
 
 #import "DataLoader.h"
-
+#import "DataModel.h"
 #import "LoadCounter.h"
+#import "NetworkManager.h"
 
 @interface DataLoader ()
 @property(nonatomic, strong) id<DataReceiver> loadDelegate;
-@property(nonatomic, strong) NSMutableArray *data;
+@property(nonatomic, strong) NSArray/*NewsPost*/ *data;
 @end
 
 @implementation DataLoader
@@ -24,28 +25,29 @@
     return loader;
 }
 
-- (void)getData
+- (void)getDataForSearchTerm:(NSString *)searchTerm
 {
-    // TODO: Add a parameter that is entered in a search field at the top of the table view.
-    // You will need to add this search field, grab the search value, and use this value as the search term.
-    NSString *searchTerm = @"ferrari"; // default search term
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.reddit.com/search.json?q=%@", searchTerm]]];
-    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary *apiResponse = [NSJSONSerialization JSONObjectWithData:urlData options:0 error:nil];
-    NSDictionary *apiData = apiResponse[@"data"];
-    NSArray *apiChildren = apiData[@"children"];
-  //  self.data = apiChildren;
-    self.data = [[NSMutableArray alloc]init];
-    for(NSDictionary *dict in apiChildren)
-    {
-        
-        [self.data addObject:dict];
+    self.data = [DataModel getDataForSearchTerm:searchTerm];
+    __weak typeof (self) weakSelf = self;
+    // if CoreData doesn't have the data for this search term then go and fetch it from server
+    if([self.data count] == 0){
+        [NetworkManager getDataForSearchTerm:searchTerm withCallBack:^(BOOL sucess, id response) {
+            typeof(self)strongSelf = weakSelf;
+            NSDictionary *apiData = response[@"data"];
+            NSArray *apiChildren = apiData[@"children"];
+            // Save it in the CoreData for future use
+            [DataModel saveData:apiChildren forSearchTerm:searchTerm];
+            // Now Retrieve the data from the core data
+            self.data = [DataModel getDataForSearchTerm:searchTerm];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.loadDelegate updateCount:self.data.count];
+                [strongSelf.loadDelegate receivedData:self.data];
+            });
+        }];
+    }else{
+        [self.loadDelegate updateCount:self.data.count];
+        [self.loadDelegate receivedData:self.data];
     }
-   
-    // Call delegate after loading data
-    [self.loadDelegate updateCount:self.data.count];
-    [self.loadDelegate receivedData:self.data];
 }
 
 @end
