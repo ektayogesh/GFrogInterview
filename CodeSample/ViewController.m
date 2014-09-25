@@ -17,9 +17,10 @@
 @property NSUInteger tableCount;
 @property(nonatomic, strong) NSArray *tableData;
 @property(nonatomic, strong) DataLoader *data;
+@property(strong,nonatomic) UIActivityIndicatorView *indicatorView;
 
-- (IBAction)searchAction:(id)sender; //Ekta : added for search action
-- (IBAction)refreshAction:(id)sender; //Added for Reresh Action. Code was crashing due to unrecognized selector.the outlet was connected to Reresh: which is not defined here
+- (IBAction)searchAction:(id)sender; //Added for search action
+- (IBAction)refreshAction:(id)sender; //Added for Reresh Action. Previously Code was crashing due to unrecognized selector.the outlet was connected to Reresh: which was not defined here
 
 @end
 
@@ -31,6 +32,9 @@
     self.data = [[DataLoader alloc] dataLoaderWithDelegate:self];
     self.tableData = [[NSMutableArray alloc]init]; //FIXED: initialize the array containing tableData
     
+    self.indicatorView = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(self.view.bounds.size.width/2-25, 150, 50, 50)];
+    [self.indicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -56,7 +60,9 @@
 {
     return self.tableCount;
 }
-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
 #pragma mark UITableViewDelegate
 
 // TODO:
@@ -65,8 +71,9 @@
 
 - (void)refreshDataForSearchTerm:(NSString*)searchTerm
 {
-    
-    [_data getDataForSearchTerm:searchTerm]; //FIXED warning: property access result unused getters should not be used for side effects.  _data.getData is meant for properties, not for methods.
+    [self.tableView addSubview:self.indicatorView];
+    [self.indicatorView startAnimating];
+        [_data getDataForSearchTerm:searchTerm]; //FIXED warning: property access result unused getters should not be used for side effects.  _data.getData is meant for properties, not for methods.
     
 }
 
@@ -84,7 +91,8 @@
 
 -(void)receivedData:(NSArray *)data
 {
-    
+    [self.indicatorView stopAnimating];
+    [self.indicatorView removeFromSuperview];
     self.tableData = data;
     
     
@@ -96,5 +104,10 @@
     self.tableCount = newCount;
 }
 
+#pragma mark UItextfield delegate methods
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return TRUE;
+}
 
 @end

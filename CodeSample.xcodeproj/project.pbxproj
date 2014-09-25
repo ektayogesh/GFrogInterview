@@ -145,6 +145,7 @@
 		E06351FF19056E63004932A4 = {
 			isa = PBXGroup;
 			children = (
+				E063521D19056E63004932A4 /* Main.storyboard */,
 				090323C719D24F0A00C4FA65 /* CodeSample.xcdatamodeld */,
 				E063521119056E63004932A4 /* CodeSample */,
 				E06352881906BB9A004932A4 /* Protocols */,
@@ -183,7 +184,6 @@
 				090323C319D245D800C4FA65 /* Views */,
 				E063521A19056E63004932A4 /* AppDelegate.h */,
 				E063521B19056E63004932A4 /* AppDelegate.m */,
-				E063521D19056E63004932A4 /* Main.storyboard */,
 				B3B2C28D1906C8100004C878 /* GFTableViewCell.h */,
 				B3B2C28E1906C8100004C878 /* GFTableViewCell.m */,
 				E063522019056E63004932A4 /* ViewController.h */,
@@ -282,6 +282,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Golden Frog, Inc.";
 				TargetAttributes = {
+					E063520719056E63004932A4 = {
+						DevelopmentTeam = 2826F5SKNP;
+					};
 					E063522819056E63004932A4 = {
 						TestTargetID = E063520719056E63004932A4;
 					};
@@ -382,6 +385,7 @@
 				E063521E19056E63004932A4 /* Base */,
 			);
 			name = Main.storyboard;
+			path = CodeSample;
 			sourceTree = "<group>";
 		};
 		E063523319056E63004932A4 /* InfoPlist.strings */ = {
